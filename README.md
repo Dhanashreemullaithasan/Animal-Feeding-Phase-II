@@ -2,6 +2,8 @@
 
 ## Aim:
 
+To develop a animal feeding game-Phase-2 using unity.
+
 ## Algorithm:
 ### Random Animal Stampede
 ### Step 1: In the Hierarchy, create an Empty object called “SpawnManager”
@@ -19,8 +21,67 @@
 ### Step 7: For all the animal prefabs and food in th inspector (below the  layer ) drop down the override option and choose apply all.
 
 ## Program:
+### Spawn Manaager:
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
+public class SpawnManager : MonoBehaviour
+{
+    public GameObject[] animalPrefabs;
+    private float spawnRangex = 20;
+    private float spawnPosZ = 20;
+    private float startDelay = 2;
+    public float spawnInterval=1.5f;
+    // Start is called before the first frame update
+    void Start()
+    {
+        InvokeRepeating("SpawnRandomAnimal", startDelay, spawnInterval);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SpawnRandomAnimal();
+        }
+    }
+    void SpawnRandomAnimal()
+    {
+        int animalIndex = Random.Range(0, animalPrefabs.Length);
+        Vector3 spawnPos = new Vector3(Random.Range(-spawnRangex, spawnRangex), 0, spawnPosZ);
+        Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation);
+    }
+}
+```
+### Detect COllision:
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DetectCollider : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {}
+
+    // Update is called once per frame
+    void Update()
+    {}
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+        Destroy(other.gameObject);
+    }
+}
+```
 ## Output:
+
+![EX5 ARVR](https://github.com/Dhanashreemullaithasan/Animal-Feeding-Phase-II/assets/94165415/95e9a098-4ee7-47ca-993a-69bfc1ecc7ef)
 
 ## Result:
 
+Animal feeding game-Phase-2 using unity is developed successfully.
